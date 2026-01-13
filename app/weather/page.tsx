@@ -7,12 +7,18 @@ import WeatherInfoCard from '../components/WeatherInfoCard';
 import WeatherCard from '../components/WeatherCard';
 
 interface WeatherInfo {
+  iataCode: string;
+  airportName: string;
   city: string;
+  country: string;
   temperature: number;
   humidity: number;
   windSpeed: number;
   pressure: number;
   condition: string;
+  conditionIcon?: string;
+  measurementTime?: string;
+
 }
 
 interface WeatherData {
@@ -25,34 +31,75 @@ export default function Weather() {
   const [destination, setDestination] = useState('');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Backend payload shape
+  interface AirportWeather {
+    iataCode: string;
+    airportName: string;
+    cityName: string;
+    country: string;
+    latitude: number;
+    longitude: number;
+    measurementTime: string;
+    temperatureCelsius: number;
+    humidityPercentage: number;
+    windSpeedKmh: number;
+    pressure: number;
+    condition: {
+      text: string;
+      icon: string;
+      code: number;
+    };
+    favorableForFlights: boolean;
+  }
+
+  const fetchWeather = async (iata: string): Promise<AirportWeather> => {
+    const res = await fetch(`/api/weather/${iata}`);
+    if (!res.ok) throw new Error(`Failed to fetch weather for ${iata}: ${res.status}`);
+    return res.json();
+  };
+
+  function mapToWeatherInfo(payload: AirportWeather) {
+    return {
+      iataCode: `${payload.iataCode}`,
+      airportName: `${payload.airportName}`,
+      city: `${payload.cityName}`,
+      country: payload.country,
+      temperature: Math.round(payload.temperatureCelsius),
+      humidity: payload.humidityPercentage,
+      windSpeed: Math.round(payload.windSpeedKmh),
+      // Backend does not provide pressure in the sample; use a sensible default
+      pressure: payload.pressure,
+      condition: payload.condition.text,
+      conditionIcon: payload.condition.icon,
+      measurementTime: payload.measurementTime,
+    };
+  }
 
   const handleSearch = async () => {
     if (!origin || !destination) return;
-    
+
     setLoading(true);
-    // Simulate API call - replace with actual weather API
-    setTimeout(() => {
-      const conditions = ['Sunny', 'Cloudy', 'Rainy', 'Clear', 'Snow', 'Thunderstorm', 'Haze', 'Sleet', 'Windy', 'Partly Cloudy', 'Heavy Rain'];
+    setError(null);
+
+    try {
+      const [originResp, destResp] = await Promise.all([
+        fetchWeather(origin),
+        fetchWeather(destination)
+      ]);
+
       setWeatherData({
-        origin: {
-          city: origin,
-          temperature: Math.floor(Math.random() * 30) + 5,
-          humidity: Math.floor(Math.random() * 40) + 40,
-          windSpeed: Math.floor(Math.random() * 20) + 5,
-          pressure: Math.floor(Math.random() * 50) + 1000,
-          condition: conditions[Math.floor(Math.random() * conditions.length)]
-        },
-        destination: {
-          city: destination,
-          temperature: Math.floor(Math.random() * 30) + 5,
-          humidity: Math.floor(Math.random() * 40) + 40,
-          windSpeed: Math.floor(Math.random() * 20) + 5,
-          pressure: Math.floor(Math.random() * 50) + 1000,
-          condition: conditions[Math.floor(Math.random() * conditions.length)]
-        }
+        origin: mapToWeatherInfo(originResp),
+        destination: mapToWeatherInfo(destResp)
       });
+    } catch (err) {
+      console.error(err);
+      setError('No se pudo obtener el clima. Verifica los códigos IATA y el backend.');
+      setWeatherData(null);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -68,6 +115,8 @@ export default function Weather() {
           onDestinationChange={setDestination}
           onSearch={handleSearch}
         />
+
+        {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{error}</div>}
 
         {/* Weather Results */}
         {weatherData && (

@@ -2,12 +2,17 @@ import Image from 'next/image';
 import { Droplets, Wind, Gauge } from 'lucide-react';
 
 interface WeatherInfo {
+  iataCode: string;
+  airportName: string;
   city: string;
+  country: string;
   temperature: number;
   humidity: number;
   windSpeed: number;
   pressure: number;
   condition: string;
+  conditionIcon?: string;
+  measurementTime?: string;
 }
 
 interface WeatherInfoCardProps {
@@ -30,24 +35,40 @@ function getWeatherIcon(condition: string): string {
   return '/assets/weather/sunny.svg';
 }
 
-export default function WeatherInfoCard({ weatherInfo }: WeatherInfoCardProps) {
+export default function WeatherInfoCard({ title, weatherInfo }: WeatherInfoCardProps) {
   return (
     <div className="bg-white rounded-lg shadow p-6">
       {/* Header */}
-      <h3 className="text-xl font-semibold text-blue-600 mb-6">
-        {weatherInfo.city}
-      </h3>
+      <div className="mb-4">
+        <h3 className="text-xl font-semibold text-blue-600">{title}: {weatherInfo.iataCode} - {weatherInfo.airportName}</h3>
+          <div className="text-md font-semibold text-gray-500 mt-1"> {weatherInfo.city} - {weatherInfo.country} </div>
+        {weatherInfo.measurementTime && (
+          <div className="text-sm text-gray-400">{new Date(weatherInfo.measurementTime).toLocaleString()}</div>
+        )}
+      </div>
       
       <div className="grid grid-cols-2 gap-6">
         {/* Left Column - Main Temperature Section */}
         <div className="flex items-center justify-center">
-          <Image 
-            src={getWeatherIcon(weatherInfo.condition)} 
-            alt={weatherInfo.condition} 
-            width={80} 
-            height={80}
-            className="mr-4"
-          />
+          {weatherInfo.conditionIcon ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={weatherInfo.conditionIcon!.startsWith('//') ? `https:${weatherInfo.conditionIcon!}` : weatherInfo.conditionIcon!}
+              alt={weatherInfo.condition}
+              width={80}
+              height={80}
+              className="mr-4"
+            />
+          ) : (
+            <Image
+              src={getWeatherIcon(weatherInfo.condition)}
+              alt={weatherInfo.condition}
+              width={80}
+              height={80}
+              className="mr-4"
+            />
+          )}
+
           <div>
             <div className="text-6xl font-light text-blue-600">
               {weatherInfo.temperature}°C
@@ -69,13 +90,13 @@ export default function WeatherInfoCard({ weatherInfo }: WeatherInfoCardProps) {
           <div className="flex items-center text-gray-500">
             <Wind className="w-4 h-4 mr-2 text-gray-600" />
             <span className="text-sm mr-2">Wind</span>
-            <span className="text-sm font-medium text-blue-600">{weatherInfo.windSpeed}kph</span>
+            <span className="text-sm font-medium text-blue-600">{weatherInfo.windSpeed} kph</span>
           </div>
           
           <div className="flex items-center text-gray-500">
             <Gauge className="w-4 h-4 mr-2 text-gray-600" />
             <span className="text-sm mr-2">Pressure</span>
-            <span className="text-sm font-medium text-blue-600">{weatherInfo.pressure}hPa</span>
+            <span className="text-sm font-medium text-blue-600">{weatherInfo.pressure} hPa</span>
           </div>
         </div>
       </div>
