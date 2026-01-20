@@ -1,6 +1,6 @@
 interface InputFieldProps {
   label: string;
-  type: 'text' | 'date';
+  type: 'text' | 'date' | 'time';
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;

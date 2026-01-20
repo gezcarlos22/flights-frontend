@@ -1,11 +1,26 @@
 'use client';
 
+import { useState } from 'react';
 import DashboardLayout from './components/DashboardLayout';
 import StatCard from './components/StatCard';
 import FlightCard from './components/FlightCard';
 import WeatherCard from './components/WeatherCard';
+import AdvancedFlightSearchForm from './components/AdvancedFlightSearchForm';
 
 export default function Home() {
+  const [origin, setOrigin] = useState('JFK');
+  const [destination, setDestination] = useState('LAX');
+  const [airline, setAirline] = useState('AA');
+  const [departureDate, setDepartureDate] = useState('2026-02-01');
+  const [departureTime, setDepartureTime] = useState('10:30');
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = () => {
+    setLoading(true);
+    console.log('Búsqueda:', { origin, destination, airline, departureDate, departureTime });
+    // Simular búsqueda
+    setTimeout(() => setLoading(false), 2000);
+  };
   const recentFlights = [
     { id: 'FL001', route: 'NYC → LAX', status: 'On Time' as const, delay: '0 min' },
     { id: 'FL002', route: 'CHI → MIA', status: 'Delayed' as const, delay: '25 min' },
@@ -25,6 +40,23 @@ export default function Home() {
           <StatCard title="Weather Alert" value={2} subtitle="Active warnings" color="yellow" />
         </div>
 
+        <div>
+          <AdvancedFlightSearchForm
+            origin={origin}
+            destination={destination}
+            airline={airline}
+            departureDate={departureDate}
+            departureTime={departureTime}
+            loading={loading}
+            onOriginChange={setOrigin}
+            onDestinationChange={setDestination}
+            onAirlineChange={setAirline}
+            onDepartureDateChange={setDepartureDate}
+            onDepartureTimeChange={setDepartureTime}
+            onSearch={handleSearch}
+          />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Recent Flights */}
           <div className="bg-white rounded-lg shadow p-6">
@@ -41,6 +73,8 @@ export default function Home() {
               ))}
             </div>
           </div>
+
+          
 
           {/* Current Weather Summary */}
           <div className="bg-white rounded-lg shadow p-6">

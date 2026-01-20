@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Cloud, BarChart3, History } from 'lucide-react';
+import { Home, Cloud, BarChart3, History, Info } from 'lucide-react';
 import Image from 'next/image';
 
 const navigation = [
@@ -10,6 +10,7 @@ const navigation = [
   { name: 'Weather', href: '/weather', icon: Cloud },
   { name: 'Statistics', href: '/statistics', icon: BarChart3 },
   { name: 'History', href: '/history', icon: History },
+  { name: 'About Us', href: '/about', icon: Info },
 ];
 
 export default function Sidebar() {

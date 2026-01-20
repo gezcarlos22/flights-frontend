@@ -26,13 +26,13 @@ export default function SearchForm({
   const handleOriginInput = (value: string) => {
     const clean = value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3);
     onOriginChange(clean);
-    setOriginError(clean && !validateIata(clean) ? 'IATA debe tener 3 letras (A–Z)' : null);
+    setOriginError(clean && !validateIata(clean) ? 'IATA must have 3 letters (A–Z)' : null);
   };
 
   const handleDestinationInput = (value: string) => {
     const clean = value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3);
     onDestinationChange(clean);
-    setDestinationError(clean && !validateIata(clean) ? 'IATA debe tener 3 letras (A–Z)' : null);
+    setDestinationError(clean && !validateIata(clean) ? 'IATA must have 3 letters (A–Z)' : null);
   };
 
   const isSearchDisabled = loading || !validateIata(origin) || !validateIata(destination);
