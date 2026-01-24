@@ -6,6 +6,7 @@ import StatCard from './components/StatCard';
 import FlightCard from './components/FlightCard';
 import WeatherCard from './components/WeatherCard';
 import AdvancedFlightSearchForm from './components/AdvancedFlightSearchForm';
+import TitlePage from './components/TitlePage';
 
 export default function Home() {
   const [origin, setOrigin] = useState('JFK');
@@ -29,8 +30,10 @@ export default function Home() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-6xl">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Flights Predictions Dashboard</h1>
+      <div className="w-full">
+        <div className="mb-10">
+          <TitlePage title="Flights Predictions" />
+        </div>
         
         {/* Statistics Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">

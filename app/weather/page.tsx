@@ -5,6 +5,7 @@ import DashboardLayout from '../components/DashboardLayout';
 import SearchForm from '../components/SearchForm';
 import WeatherInfoCard from '../components/WeatherInfoCard';
 import WeatherCard from '../components/WeatherCard';
+import TitlePage from '../components/TitlePage';
 
 interface WeatherInfo {
   iataCode: string;
@@ -17,7 +18,7 @@ interface WeatherInfo {
   pressure: number;
   condition: string;
   conditionIcon?: string;
-  measurementTime?: string;
+  localtime?: string;
 
 }
 
@@ -41,7 +42,7 @@ export default function Weather() {
     country: string;
     latitude: number;
     longitude: number;
-    measurementTime: string;
+    lastUpdated: string;
     temperatureCelsius: number;
     humidityPercentage: number;
     windSpeedKmh: number;
@@ -73,7 +74,7 @@ export default function Weather() {
       pressure: payload.pressure,
       condition: payload.condition.text,
       conditionIcon: payload.condition.icon,
-      measurementTime: payload.measurementTime,
+      lastUpdated: payload.lastUpdated,
     };
   }
 
@@ -104,9 +105,11 @@ export default function Weather() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-6xl">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Weather Conditions</h1>
-        
+      <div className="w-full">
+        <div className="mb-10">
+          <TitlePage title="Weather Conditions" />
+        </div>
+
         <SearchForm
           origin={origin}
           destination={destination}

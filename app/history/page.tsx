@@ -1,6 +1,7 @@
 import DashboardLayout from '../components/DashboardLayout';
 import FlightTable from '../components/FlightTable';
 import StatsGrid from '../components/StatsGrid';
+import TitlePage from '../components/TitlePage';
 
 export default function History() {
   const flightHistory = [
@@ -14,8 +15,10 @@ export default function History() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-6xl">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Flight History</h1>
+      <div className="w-full">
+        <div className="mb-10">
+          <TitlePage title="Flight History" />
+        </div>
         
         <FlightTable 
           flights={flightHistory} 
