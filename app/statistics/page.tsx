@@ -8,9 +8,9 @@ export default function Statistics() {
   const cards = [
     {
       id: 1,
-      title: 'Mapa 3D de Rutas Aéreas',
-      description: 'Visualización interactiva de probabilidades de retraso por ruta',
-      buttonText: 'Abrir 3D Routes Map',
+      title: '3D Air Routes Map',
+      description: 'Interactive visualization of delay probabilities by route',
+      buttonText: 'Open 3D Routes Map',
       href: 'https://retrasosvuelos40-gmlvzsuujjty5epk5ydbzs.streamlit.app/ROI_Calculator',
       icon: Map,
       bgGradient: 'from-blue-600 to-blue-900',
@@ -19,8 +19,8 @@ export default function Statistics() {
     {
       id: 2,
       title: 'Predictive Simulator',
-      description: 'Prueba el modelo de predicción en tiempo real',
-      buttonText: 'Abrir Predictive Simulator',
+      description: 'Test the prediction model in real time',
+      buttonText: 'Open Predictive Simulator',
       href: 'https://retrasosvuelos40-gmlvzsuujjty5epk5ydbzs.streamlit.app/Predictive_Simulator',
       icon: Zap,
       bgGradient: 'from-purple-600 to-purple-900',
@@ -29,8 +29,8 @@ export default function Statistics() {
     {
       id: 3,
       title: 'ROI Calculator',
-      description: 'Calculadora de Retorno de Inversión del Sistema FlightOnTime',
-      buttonText: 'Abrir ROI Calculator',
+      description: 'Return on Investment Calculator for FlightOnTime System',
+      buttonText: 'Open ROI Calculator',
       href: 'https://retrasosvuelos40-gmlvzsuujjty5epk5ydbzs.streamlit.app/ROI_Calculator',
       icon: TrendingUp,
       bgGradient: 'from-emerald-600 to-emerald-900',

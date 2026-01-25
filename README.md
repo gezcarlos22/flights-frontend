@@ -1,26 +1,26 @@
-# Cómo empezar
+# Getting Started
 
-### 1. Instalar dependencias
-Antes de correr el proyecto por primera vez, debes instalar los paquetes necesarios:
+### 1. Install Dependencies
+Before running the project for the first time, you must install the necessary packages:
 
 ```bash
 npm install
-# o
+# or
 yarn install
-# o
+# or
 pnpm install
 ```
 
-### 2. Ejecutar el servidor de desarrollo
-Una vez instaladas las dependencias, inicia el proyecto con:
+### 2. Run the Development Server
+Once the dependencies are installed, start the project with:
 
 ```bash
 npm run dev
-# o
+# or
 yarn dev
-# o
+# or
 pnpm dev
 ```
-Abra [http://localhost:3000](http://localhost:3000) en su navegador para ver el resultado.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-**Nota:** Puedes empezar a editar la página modificando `app/page.tsx`. La página se actualizará automáticamente a medida que edites el archivo.
+**Note:** You can start editing the page by modifying `app/page.tsx`. The page will update automatically as you edit the file.

@@ -17,16 +17,11 @@ interface AdvancedFlightSearchFormProps {
   onSearch: () => void;
 }
 
-interface Factor {
-  name: string;
-  value: number;
-}
 
 interface PredictionResult {
   prediction: 'on-time' | 'delayed';
   probability: number;
   confidence: 'low' | 'medium' | 'high';
-  factors: Factor[];
 }
 
 export default function AdvancedFlightSearchForm({
@@ -94,19 +89,11 @@ export default function AdvancedFlightSearchForm({
     (!!departureDate && !validateDate(departureDate));
 
   const handleSearchClick = () => {
-    // Simulate prediction result - en producción esto vendría del backend
+    // Simulate prediction result - in production this would come from the backend
     const mockResult: PredictionResult = {
       prediction: Math.random() > 0.5 ? 'delayed' : 'on-time',
       probability: Math.floor(Math.random() * 100),
       confidence: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)] as 'low' | 'medium' | 'high',
-      factors: [
-        { name: 'Temporada invernal', value: 20 },
-        { name: `Vuelo largo (${Math.floor(Math.random() * 3000 + 1000)}Km)`, value: 15 },
-        { name: `Viento moderado (${Math.floor(Math.random() * 50)}KM/H)`, value: 10 },
-        { name: `Aerolínea: ${airline || 'N/A'}`, value: 5 },
-        { name: `Ruta: ${origin}-${destination}`, value: 3 },
-        { name: 'Horario diurno', value: -10 }
-      ]
     };
     
     setPredictionResult(mockResult);
@@ -197,7 +184,6 @@ export default function AdvancedFlightSearchForm({
           prediction={predictionResult.prediction}
           probability={predictionResult.probability}
           confidence={predictionResult.confidence}
-          factors={predictionResult.factors}
           origin={origin}
           destination={destination}
           airline={airline}

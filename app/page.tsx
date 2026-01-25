@@ -18,8 +18,8 @@ export default function Home() {
 
   const handleSearch = () => {
     setLoading(true);
-    console.log('Búsqueda:', { origin, destination, airline, departureDate, departureTime });
-    // Simular búsqueda
+    console.log('Search:', { origin, destination, airline, departureDate, departureTime });
+    // Simulate search
     setTimeout(() => setLoading(false), 2000);
   };
   const recentFlights = [

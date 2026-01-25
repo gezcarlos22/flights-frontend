@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flights Predictions Dashboard",
+  title: "Flight On Time",
   description: "AI-powered flight prediction and analytics platform",
 };
 
