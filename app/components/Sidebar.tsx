@@ -20,14 +20,12 @@ export default function Sidebar() {
     <div className="flex h-screen w-64 flex-col bg-gray-900 py-10 px-5">
       <div className="flex flex-col justify-center items-center px-4 bg-gray-900">
         <Image 
-          src="/assets/icon.png" 
-          alt="Flights Predictor Icon" 
-          width={60} 
-          height={60} 
+          src="/assets/LOGO.png" 
+          alt="Flights On Time" 
+          width={200} 
+          height={200} 
           className="mb-1"
         />
-        <h1 className="text-xl font-bold uppercase text-white">Flights</h1>
-        <h1 className="text-xl font-bold uppercase text-white">Predictor</h1>
       </div>
       
       <nav className="flex-1 space-y-2 px-2 py-6">

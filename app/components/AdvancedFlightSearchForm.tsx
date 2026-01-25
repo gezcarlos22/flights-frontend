@@ -198,6 +198,11 @@ export default function AdvancedFlightSearchForm({
           probability={predictionResult.probability}
           confidence={predictionResult.confidence}
           factors={predictionResult.factors}
+          origin={origin}
+          destination={destination}
+          airline={airline}
+          departureDate={departureDate}
+          departureTime={departureTime}
         />
       )}
     </>

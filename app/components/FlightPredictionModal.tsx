@@ -1,6 +1,5 @@
-import { X, AlertCircle, CheckCircle, TrendingUp, Zap, Plane} from 'lucide-react';
+import { X, AlertCircle, CheckCircle, TrendingUp, Plane, Calendar, Clock, Briefcase} from 'lucide-react';
 import GaugeChart from './GaugeChart';
-import FactorsChart from './FactorsChart';
 
 
 interface Factor {
@@ -16,6 +15,11 @@ interface FlightPredictionModalProps {
   probability: number; // 0-100
   confidence: 'low' | 'medium' | 'high';
   factors: Factor[];
+  origin?: string;
+  destination?: string;
+  airline?: string;
+  departureDate?: string;
+  departureTime?: string;
 }
 
 function getConfidenceColor(confidence: 'low' | 'medium' | 'high'): string {
@@ -73,7 +77,11 @@ export default function FlightPredictionModal({
   prediction,
   probability,
   confidence,
-  factors
+  origin,
+  destination,
+  airline,
+  departureDate,
+  departureTime
 }: FlightPredictionModalProps) {
   if (!isOpen) return null;
 
@@ -106,6 +114,69 @@ export default function FlightPredictionModal({
 
         {/* Content */}
         <div className="p-8 space-y-8">
+          {/* Flight Details Section */}
+          {(origin || destination || airline || departureDate || departureTime) && (
+            <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-6 border-2 border-indigo-200">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 bg-indigo-100 rounded-lg">
+                  <Plane className="w-5 h-5 text-indigo-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800">Detalles del Vuelo</h3>
+                  <p className="text-xs text-gray-500 mt-1">Información de búsqueda</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                {/* Origin and Destination */}
+                {(origin || destination) && (
+                  <div className="flex items-center justify-center md:col-span-1 lg:col-span-2">
+                    <div className="flex items-center gap-2">
+                      <div className="text-center">
+                        <div className="text-sm text-gray-600 mb-1">Origen</div>
+                        <div className="text-2xl font-bold text-indigo-600">{origin || '-'}</div>
+                      </div>
+                      <div className="text-2xl text-gray-400">→</div>
+                      <div className="text-center">
+                        <div className="text-sm text-gray-600 mb-1">Destino</div>
+                        <div className="text-2xl font-bold text-indigo-600">{destination || '-'}</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Airline */}
+                {airline && (
+                  <div className="flex flex-col items-center justify-center bg-white rounded-lg p-3 border border-indigo-100">
+                    <Briefcase className="w-4 h-4 text-indigo-600 mb-2" />
+                    <div className="text-xs text-gray-600 text-center">Aerolínea</div>
+                    <div className="text-lg font-bold text-indigo-600 mt-1">{airline}</div>
+                  </div>
+                )}
+                
+                {/* Date */}
+                {departureDate && (
+                  <div className="flex flex-col items-center justify-center bg-white rounded-lg p-3 border border-indigo-100">
+                    <Calendar className="w-4 h-4 text-indigo-600 mb-2" />
+                    <div className="text-xs text-gray-600 text-center">Fecha</div>
+                    <div className="text-sm font-bold text-indigo-600 mt-1">
+                      {new Date(departureDate).toLocaleDateString('es-ES')}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Time */}
+                {departureTime && (
+                  <div className="flex flex-col items-center justify-center bg-white rounded-lg p-3 border border-indigo-100">
+                    <Clock className="w-4 h-4 text-indigo-600 mb-2" />
+                    <div className="text-xs text-gray-600 text-center">Hora</div>
+                    <div className="text-lg font-bold text-indigo-600 mt-1">{departureTime}</div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+          
           {/* Top Row: Main Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Probability Gauge - Left */}
@@ -146,20 +217,6 @@ export default function FlightPredictionModal({
                 </p>
               </div>
             </div>
-          </div>
-
-          {/* Factors Section */}
-          <div className="border-t-2 border-gray-200 pt-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <Zap className="w-5 h-5 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-800">Factores que Influyen</h3>
-                <p className="text-xs text-gray-500 mt-1">Análisis de variables que afectan la predicción</p>
-              </div>
-            </div>
-            <FactorsChart factors={factors} />
           </div>
         </div>
       </div>
