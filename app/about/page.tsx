@@ -11,7 +11,7 @@ const chapters = [
     title: 'Chapter 1. Introduction and Project Purpose',
     content: [
       `FlightOnTime is a flight delay prediction system designed to anticipate, based on historical data and Machine Learning techniques, whether a flight will depart on time or with a significant delay. The project stems from a specific need in the aviation industry: delays not only affect the passenger experience but also generate operational inefficiencies, extra costs, and planning issues that could be mitigated if the risk is known in advance.`,
-      `The main objective of the system is not to retrospectively explain why a delay occurred, but to <strong>estimate the risk of it occurring before takeoff</strong>, when preventive decisions can still be made. To achieve this, FlightOnTime combines a robust Data Science model with an architecture designed for real production use, exposing predictions through a REST API.`,
+      `<p>The main objective of the system is not to retrospectively explain why a delay occurred, but to <strong>estimate the risk of it occurring before takeoff</strong>, when preventive decisions can still be made. To achieve this, FlightOnTime combines a robust Data Science model with an architecture designed for real production use, exposing predictions through a REST API.</p>`,
       `This approach turns the project into a complete solution that goes beyond exploratory analysis or experimental modeling, positioning itself as a practical tool to support decision-making.`
     ]
   },
@@ -19,7 +19,7 @@ const chapters = [
     id: 2,
     title: 'Chapter 2. Data Science Approach and Problem Definition',
     content: [
-      'From a Data Science perspective, the problem was formulated as a <strong>binary classification problem</strong>, where the model must predict whether a flight will belong to one of the following classes:',
+      '<p>From a Data Science perspective, the problem was formulated as a <strong>binary classification problem</strong>, where the model must predict whether a flight will belong to one of the following classes:</p>',
       `<ul>
         <li>• On-time flight</li>
         <li>• Flight with a delay equal to or greater than 15 minutes</li>
@@ -32,8 +32,8 @@ const chapters = [
     id: 3,
     title: 'Chapter 3. Data Used and Dataset Enrichment',
     content: [
-      'The model was trained using a large-scale dataset composed of approximately <strong>35.7 million US domestic flights</strong>. This volume of data allows for the capture of structural patterns in the aviation system that would not be visible in small or limited datasets.',
-      'In addition to basic flight information, the project incorporates a <strong>data enrichment</strong> process, integrating external variables relevant to delay prediction. Specifically, historical weather information and geolocation data obtained through specialized APIs and sources evaluated for their reliability were added.',
+      `<p>The model was trained using a large-scale dataset composed of approximately <strong>35.7 million US domestic flights</strong>. This volume of data allows for the capture of structural patterns in the aviation system that would not be visible in small or limited datasets.</p>`,
+      `<p>In addition to basic flight information, the project incorporates a <strong>data enrichment</strong> process, integrating external variables relevant to delay prediction. Specifically, historical weather information and geolocation data obtained through specialized APIs and sources evaluated for their reliability were added.</p>`,
       `This enrichment is one of the project's main strengths, as it introduces factors that directly influence flight punctuality and are often omitted in simplified approaches.`
     ]
   },
